@@ -1,31 +1,27 @@
-		import Controller from '@ember/controller';
-	import { match, not } from '@ember/object/computed';
-	import { empty } from '@ember/object/computed';
+		import Ember from 'ember';
 
+export default Ember.Controller.extend({
 
+ isValidEmail: Ember.computed.match('emailAddress', /^.+@.+\..+$/),
+ isMessageEnoughLong: Ember.computed.gte('message.length', 5),
+ emailAddress: '',
+ text: '',
+ isValid: Ember.computed.and('isValidEmail', 'isMessageEnoughLong'),
 
-export default Controller.extend({
+ actions: {
 
-  emailAddress: '',
-  text:'',
+   saveInvite() {
+     const email = this.get('emailAddress');
+     const text = this.get('text');
+     const newContact = this.store.createRecord('Contact', { email ,text});
 
-  isValid: match('emailAddress', /^.+@.+\..+$/),
-  isDisabled: not('isValid'),
-  actions: {
+     newContact.save().then(response => {
+       this.set('responseMessage', `Thank you! We saved your email address with the following id: ${response.get('id')}`);
+       this.set('emailAddress', '',);
+       this.set('text','');
+     });
 
-    saveInvite() {
-      const email = this.get('emailAddress');
-      const text=this.get('text');
-
-      const newcontact = this.store.createRecord('contact', { email ,text});
-
-      newcontact.save().then(response => {
-        this.set('responseMessage', `Thank you! We saved your email address with the following id: ${response.get('id')}`);
-        this.set('emailAddress', '');
-        this.set('text', '');
-      });
-    }
-  }
-
+   }
+ }
 
 });

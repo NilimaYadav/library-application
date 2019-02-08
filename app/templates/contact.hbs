@@ -4,8 +4,9 @@
 
 	<div class="form-horizontal form-group form-group-lg row">
 	<div class="col-xs-10 col-xs-offset-3  col-sm-6 col-md-6">
-		{{input type="email" value=emailAddress class="form-control" placeholder="Please type your e-mail address." autofocus="autofocus"}}
 
+	{{input type ="email" value=emailAddress class="form-control" placeholder="Please type your email address." autofocus="autofocus"}}
+	
 	</div>
 	</div>
 	<br/>
@@ -17,7 +18,7 @@
 	<br/>
 <div class="form-horizontal form-group form-group-lg row">
 	<div class="col-xs-10 col-xs-offset-5  col-sm-2 col-md-2">
-      <button class="btn btn-primary btn-block" disabled={{isDisabled}} {{action 'saveInvite'}}>Send message</button>
+       <button class="btn btn-primary  btn-block" {{action 'saveInvite'}} disabled={{isDisabled}}>Send message</button>
      </div>
    </div>
 
